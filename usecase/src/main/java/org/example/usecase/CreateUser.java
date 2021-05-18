@@ -10,13 +10,13 @@ import org.example.usecase.validator.UserValidator;
 
 @RequiredArgsConstructor
 public class CreateUser {
-  private final UserRepository repository;
+  private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final IdGenerator idGenerator;
   
   public User createUser(final User user){
     UserValidator.validateUser(user);
-    if(repository.findByEmail(user.getEmail()).isPresent()){
+    if(userRepository.findByEmail(user.getEmail()).isPresent()){
       throw new UserAlreadyExistsException(user.getEmail());
     }
     User userToSave = User.builder()
@@ -26,6 +26,6 @@ public class CreateUser {
         .lastName(user.getLastName())
         .firstName(user.getFirstName())
         .build();
-    return repository.create(userToSave);
+    return userRepository.create(userToSave);
   }
 }
