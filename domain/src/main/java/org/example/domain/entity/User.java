@@ -2,7 +2,6 @@ package org.example.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 
 @Builder
 @Data

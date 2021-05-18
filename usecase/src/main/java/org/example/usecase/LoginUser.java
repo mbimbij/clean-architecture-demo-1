@@ -14,10 +14,10 @@ public class LoginUser {
   private final PasswordEncoder passwordEncoder;
 
   public User login(final String email, final String password) {
-    User user = userRepository.findByEmail(email).orElseThrow(() -> new NotAllowedException("user " + email + " does not exist"));
+    User user = userRepository.findByEmail(email).orElseThrow(() -> new NotAllowedException("invalid credentials"));
     String hashedPassword = passwordEncoder.encode(email + password);
     if(!Objects.equals(user.getPassword(), hashedPassword)){
-      throw new NotAllowedException("wrong password");
+      throw new NotAllowedException("invalid credentials");
     }
     return user;
   }
